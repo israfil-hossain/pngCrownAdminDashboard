@@ -1,0 +1,90 @@
+{
+    "categories": [
+        {
+            "name": "Mathematics",
+            "subjects": [
+                {
+                    "name": "Algebra",
+                    "quizzes": [
+                        {
+                            "name": "Basic Algebra",
+                            "questions": [
+                                "What is the quadratic formula?",
+                                "How do you solve a system of linear equations?"
+                            ]
+                        },
+                        {
+                            "name": "Advanced Algebra",
+                            "questions": [
+                                "What is a polynomial function?",
+                                "What is the Fundamental Theorem of Algebra?"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "Geometry",
+                    "quizzes": [
+                        {
+                            "name": "Basic Geometry",
+                            "questions": [
+                                "What are the properties of a rectangle?",
+                                "How do you calculate the area of a circle?"
+                            ]
+                        },
+                        {
+                            "name": "Advanced Geometry",
+                            "questions": [
+                                "What is a parabola?",
+                                "What is the Pythagorean Theorem?"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Science",
+            "subjects": [
+                {
+                    "name": "Biology",
+                    "quizzes": [
+                        {
+                            "name": "Basic Biology",
+                            "questions": [
+                                "What is photosynthesis?",
+                                "What are the stages of mitosis?"
+                            ]
+                        },
+                        {
+                            "name": "Advanced Biology",
+                            "questions": [
+                                "What is DNA replication?",
+                                "What is natural selection?"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "Chemistry",
+                    "quizzes": [
+                        {
+                            "name": "Basic Chemistry",
+                            "questions": [
+                                "What is an acid?",
+                                "What is a base?"
+                            ]
+                        },
+                        {
+                            "name": "Advanced Chemistry",
+                            "questions": [
+                                "What is an oxidation-reduction reaction?",
+                                "What is a mole?"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
