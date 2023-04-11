@@ -330,12 +330,13 @@ const AddUser = ({ open, onClose, data, fetchData }) => {
                       Input Role
                     </Typography>
                     <FormControl>
-                      <InputLabel id="demo-simple-select-label">
-                        Input role
+                      <InputLabel id="select-label">
+                        Role
                       </InputLabel>
                       <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
+                        labelId="select-label"
+                        id="select-label"
+                        placeholder="Input User Role"
                         value={values.role} // Set the value to the role field of Formik's values object
                         label="Role"
                         onChange={handleChange}

@@ -60,7 +60,7 @@ const Navbar = () => {
           <MdMenu />
         </div>
 
-        <div className="text-lg font-bold pl-2"> Dashboard</div>
+        <div className="text-lg font-bold pl-2"> </div>
       </div>
 
       {/* Search Bar */}

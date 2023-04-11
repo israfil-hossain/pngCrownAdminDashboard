@@ -3,7 +3,7 @@ import { useRef } from "react";
 
 import { motion } from "framer-motion";
 import { useMediaQuery } from "react-responsive";
-import { NavLink, useLocation,} from "react-router-dom";
+import { Link, NavLink, useLocation,} from "react-router-dom";
 import { MenuContext } from "../../../context/MenuContext";
 
 // * React icons
@@ -100,6 +100,7 @@ const Sidebar = () => {
           overflow-hidden md:relative fixed
        h-screen "
       >
+        <Link to="/">
         <div className="flex items-center gap-2.5 font-medium border-b py-3 border-slate-300  mx-3">
           <img
             src={logo}
@@ -114,6 +115,7 @@ const Sidebar = () => {
           />
           {/* <span className="text-xl text-gray-200 whitespace-pre">PngCrown</span> */}
         </div>
+        </Link>
 
         <div className="flex flex-col  h-full">
           <ul className="whitespace-pre px-2.5 text-[0.9rem] py-5 flex flex-col gap-1  font-medium overflow-x-hidden scrollbar-thin scrollbar-track-white scrollbar-thumb-slate-100   md:h-[68%] h-[70%]">
