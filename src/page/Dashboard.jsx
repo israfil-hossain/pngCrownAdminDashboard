@@ -74,9 +74,9 @@ const Dashboard = () => {
             <FiDownloadCloud className="w-8 h-8 animate-my-pulse" />
           </div>
           <div>
-            Total Slider :{" "}
+            Total Images Download :{" "}
             <span className="font-medium text-xl">
-              {data?.totalSliderDatas}
+              {data?.totalDownloads}
             </span>
           </div>
         </div>
