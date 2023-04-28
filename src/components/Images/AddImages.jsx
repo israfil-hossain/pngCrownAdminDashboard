@@ -64,7 +64,7 @@ const AddImage = ({ open, onClose, data, fetchData }) => {
   const [category, setCategory] = useState();
   const [tags, setTags] = useState("");
   const [tagsAlldata, setTagsAlldata] = useState();
-  const [previewImage, setPreviewImage] = useState(data? data?.imageUrl : "");
+  const [previewImage, setPreviewImage] = useState(data ? data?.imageUrl : "");
 
   const handleTagsChange = (event) => {
     setTags(event.target.value);
@@ -74,7 +74,7 @@ const AddImage = ({ open, onClose, data, fetchData }) => {
     event.preventDefault();
 
     const newProduct = {
-        tagsitem: tags, // add tags value to the newProduct object
+      tagsitem: tags, // add tags value to the newProduct object
     };
 
     const res = await CategoryService.addTags(newProduct);
@@ -120,7 +120,7 @@ const AddImage = ({ open, onClose, data, fetchData }) => {
       formData.append("status", values.status);
       formData.append("category", values.category);
       formData.append("imageName", values.imageName);
-      formData.append("tags",values.tags);
+      formData.append("tags", values.tags);
       console.log("FormData", formData);
 
       const response = await ImageService.addImage(formData);
@@ -137,27 +137,27 @@ const AddImage = ({ open, onClose, data, fetchData }) => {
   };
   const handleUpdate = async (values, { setSubmitting }) => {
     console.log("Values", values);
-   try {
-     setIsLoading(true);
-     const formData = new FormData();
-     formData.append("image", values.image);
-     formData.append("status", values.status);
-     formData.append("category", values.category);
-     formData.append("imageName", values.imageName);
+    try {
+      setIsLoading(true);
+      const formData = new FormData();
+      formData.append("image", values.image);
+      formData.append("status", values.status);
+      formData.append("category", values.category);
+      formData.append("tags", values.tags);
+      formData.append("imageName", values.imageName);
 
-     const response = await ImageService.updateImage(data?._id,formData);
-     console.log(response);
-     toast.success("Update Successfully");
-     fetchData(); 
-     onClose(); 
-
-   } catch (error) {
-     toast.error("Something went wrong uploading "); 
-     console.log(error);
-   }
-   setIsLoading(false); 
-   setSubmitting(false);
- };
+      const response = await ImageService.updateImage(data?._id, formData);
+      console.log(response);
+      toast.success("Update Successfully");
+      fetchData();
+      onClose();
+    } catch (error) {
+      toast.error("Something went wrong uploading ");
+      console.log(error);
+    }
+    setIsLoading(false);
+    setSubmitting(false);
+  };
   return (
     <Modal
       aria-labelledby="transition-modal-title"
@@ -360,9 +360,8 @@ const AddImage = ({ open, onClose, data, fetchData }) => {
                       </p>
                     )}
                   </div>
-                  {
-                    data ? "" : 
-                    <div className="mb-4">
+
+                  <div className="mb-4">
                     <label htmlFor="tags" className="block text-gray-800  mb-2">
                       Tags
                     </label>
@@ -371,9 +370,11 @@ const AddImage = ({ open, onClose, data, fetchData }) => {
                         fullWidth
                         multiple
                         id="tags-outlined"
-                        options={tagsAlldata?.map((tag)=>tag?.tagsitem)}
+                        options={(tagsAlldata || []).map(
+                          (tag) => tag?.tagsitem
+                        )}
                         getOptionLabel={(option) => option}
-                        value={values?.tags}
+                        value={values?.tags || []}
                         onChange={(event, newValue) => {
                           handleChange({
                             target: {
@@ -401,7 +402,6 @@ const AddImage = ({ open, onClose, data, fetchData }) => {
                       </div>
                     </div>
                   </div>
-                  }
 
                   <button
                     type="submit"

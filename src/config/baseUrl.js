@@ -1,6 +1,6 @@
 export const baseUrl = {
-    information: "http://89.116.228.42:8000/api",
-    file: "http://89.116.228.42:8000/api",
+    information: "http://153.92.210.129:8000/api",
+    file: "http://153.92.210.129:8000/api",
 };
 
 // export const baseUrl = {
