@@ -38,7 +38,6 @@ const Category = () => {
 
   const fetchData = async () => {
     const res = await CategoryService.getCategory();
-    console.log("User==>", res.data);
     setData(res.data);
   };
   const handleSearchQueryChange = debounce((query) => {

@@ -8,7 +8,7 @@ import AddCategoryModal from "../Category/AddCategory";
 // import UserModal from "../User/UserModal";
 
 const CommonModal = ({ selectedData,open,cid, onClose, typeData,onUpdate }) => {
-  console.log("====> ", cid); 
+  // console.log("====> ", cid); 
   return (
     <>
       {/* {(() => {

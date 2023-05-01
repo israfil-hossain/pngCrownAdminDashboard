@@ -41,7 +41,7 @@ const AddSlider = ({ open, onClose, data, fetchData }) => {
 
   
   const handleSubmit = async (values, { setSubmitting }) => {
-     console.log("Values", values);
+   
     try {
       setIsLoading(true);
       const formData = new FormData();
@@ -63,7 +63,6 @@ const AddSlider = ({ open, onClose, data, fetchData }) => {
   };
 
   const handleUpdate = async (values, { setSubmitting }) => {
-    console.log("Values", values);
    try {
      setIsLoading(true);
      const formData = new FormData();

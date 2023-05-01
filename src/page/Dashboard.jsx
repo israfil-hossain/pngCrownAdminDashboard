@@ -24,7 +24,6 @@ const Dashboard = () => {
   if (isError) {
     return <div>Error fetching data </div>;
   }
-  console.log("Dashbaord data is : ", data);
   return (
     <div className="">
       <PackageBreadcrumb>

@@ -10,7 +10,6 @@ const MenuContextProvider = ({children})=>{
 
     const toggleMenu = () => setIsOpen(!isOpen); 
     
-    console.log("Click Toggle Menu"); 
     return (
         <MenuContext.Provider value={{isOpen,toggleMenu,isDarkMode,toggle_background}}>
             {children}

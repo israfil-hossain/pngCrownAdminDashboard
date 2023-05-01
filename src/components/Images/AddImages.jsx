@@ -95,7 +95,6 @@ const AddImage = ({ open, onClose, data, fetchData }) => {
   const fetchTags = async () => {
     const res = await CategoryService.getTags();
     setTagsAlldata(res.data);
-    console.log("Tags is :", res.data);
   };
   const fetchCategory = async () => {
     const res = await CategoryService.getCategory();
@@ -108,11 +107,9 @@ const AddImage = ({ open, onClose, data, fetchData }) => {
         label: category.cat_name,
       }))
     );
-    console.log("activeCategories Data ==>", activeCategories);
   };
 
   const handleSubmit = async (values, { setSubmitting }) => {
-    console.log("Values", values);
     try {
       setIsLoading(true);
       const formData = new FormData();
@@ -121,7 +118,7 @@ const AddImage = ({ open, onClose, data, fetchData }) => {
       formData.append("category", values.category);
       formData.append("imageName", values.imageName);
       formData.append("tags", values.tags);
-      console.log("FormData", formData);
+    
 
       const response = await ImageService.addImage(formData);
       console.log(response);
@@ -136,7 +133,6 @@ const AddImage = ({ open, onClose, data, fetchData }) => {
     setSubmitting(false);
   };
   const handleUpdate = async (values, { setSubmitting }) => {
-    console.log("Values", values);
     try {
       setIsLoading(true);
       const formData = new FormData();

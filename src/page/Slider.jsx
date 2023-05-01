@@ -35,7 +35,6 @@ const Slider = () => {
 
   const fetchData = async () => {
     const res = await SliderService.getSlider();
-    console.log("Sldier Data ==>", res.data);
     setData(res.data);
   };
   const handleSearchQueryChange = debounce((query) => {

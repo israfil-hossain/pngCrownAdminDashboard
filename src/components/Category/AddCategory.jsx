@@ -35,8 +35,8 @@ const AddCategoryModal = ({ open, onClose, data, fetchData }) => {
     try {
       //api call
       const response = await CategoryService.addCategory(values);
-      console.log("object :>> ", response);
-      console.log("Status Code : ", response.status);
+      // console.log("object :>> ", response);
+      // console.log("Status Code : ", response.status);
       if (response.status === 200) {
         const responseData = response.data;
         if (responseData.error) {
@@ -47,7 +47,7 @@ const AddCategoryModal = ({ open, onClose, data, fetchData }) => {
               acc[key] = errorData.errors[key].msg;
               return acc;
             }, {});
-            console.log(errors);
+            // console.log(errors);
             setErrors(errors);
           }
         } else {
@@ -66,7 +66,7 @@ const AddCategoryModal = ({ open, onClose, data, fetchData }) => {
             acc[key] = errorData.errors[key].msg;
             return acc;
           }, {});
-          console.log(errors);
+       
           setErrors(errors);
         } else {
           toast.error("Something went wrong");
@@ -79,12 +79,10 @@ const AddCategoryModal = ({ open, onClose, data, fetchData }) => {
 
   // Update Data
   const handleUpdate = async (values, { setSubmitting, setErrors }) => {
-    console.log("Values ", values);
+    
     try {
       //api call
       const response = await CategoryService.updateCategory(data?._id, values);
-      console.log("object :>> ", response);
-      console.log("Status Code : ", response.status);
       if (response.status === 200) {
         toast.success("Successfully Update User ");
         onClose(true);

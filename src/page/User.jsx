@@ -35,7 +35,6 @@ const User = () => {
 
   const fetchData = async () => {
     const res = await UserService.getUsers();
-    console.log("User==>", res.data);
     setData(res.data);
   };
   const handleSearchQueryChange = debounce((query) => {

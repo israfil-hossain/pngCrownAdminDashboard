@@ -36,7 +36,6 @@ const Image = () => {
 
   const fetchData = async () => {
     const res = await ImageService.getImage();
-    console.log("Image Data ==>", res.data);
     setData(res.data);
   };
   const handleSearchQueryChange = debounce((query) => {

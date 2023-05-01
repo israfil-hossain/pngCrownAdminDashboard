@@ -1,6 +1,11 @@
 export const baseUrl = {
-    information: "http://153.92.210.129:8000/api",
-    file: "http://153.92.210.129:8000/api",
+    // information: "http://153.92.210.129:8000/api",
+    // file: "http://153.92.210.129:8000/api",
+
+    information: "https://api.pngcrown.com/api",
+    file: "https://api.pngcrown.com/api",
+
+    
 };
 
 // export const baseUrl = {
@@ -8,4 +13,3 @@ export const baseUrl = {
 //     file: "http://localhost:8000/api",
 // };
 
-// mongoDb : mongodb+srv://pngcrown:pngcrown@cluster0.bdexcro.mongodb.net/pngCrown?retryWrites=true&w=majority

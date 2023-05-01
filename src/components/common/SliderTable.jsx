@@ -25,11 +25,9 @@ import AddSlider from "../Slider/AddSlider";
 import ViewSlider from "../Slider/ViewSlider";
 
 const SliderTable = ({ id,columns, data, typeData, fetchData }) => {
-  console.log("TypeData ", typeData);
   const [open, setOpen] = useState(false);
   const [selectedData, setSelectedData] = useState(null);
   const [dataType, setDataType] = useState(null);
-  console.log("Datatype ", dataType);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
@@ -104,7 +102,6 @@ const SliderTable = ({ id,columns, data, typeData, fetchData }) => {
         setSelectedData(item);
         break;
       case "slider":
-        console.log("Slider selected", item);
         setDataType("slider_edit");
         setOpen(true);
         setSelectedData(item);

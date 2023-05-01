@@ -33,7 +33,6 @@ const Activity = () => {
 
   const fetchData = async () => {
     const res = await UserService.userActivity();
-    console.log("User Activity ==>", res.data);
     setData(res.data.userActivity);
   };
   const handleSearchQueryChange = debounce((query) => {

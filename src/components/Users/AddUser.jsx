@@ -48,7 +48,6 @@ const AddUser = ({ open, onClose, data, fetchData }) => {
   };
 
   const handleSubmit = async (values, { setSubmitting, setErrors }) => {
-    console.log("Values : >> ", values);
     try {
       //api call
       setIsLoading(true);
@@ -65,7 +64,6 @@ const AddUser = ({ open, onClose, data, fetchData }) => {
               acc[key] = errorData.errors[key].msg;
               return acc;
             }, {});
-            console.log(errors);
             setErrors(errors);
           }
         } else {
@@ -85,7 +83,6 @@ const AddUser = ({ open, onClose, data, fetchData }) => {
             acc[key] = errorData.errors[key].msg;
             return acc;
           }, {});
-          console.log(errors);
           setErrors(errors);
         } else {
           toast.error("Something went wrong");
@@ -100,8 +97,6 @@ const AddUser = ({ open, onClose, data, fetchData }) => {
     try {
       //api call
       const response = await UserService.updateUser(data._id, values);
-      console.log("object :>> ", response);
-      console.log("Status Code : ", response.status);
       if (response.status === 200) {
         toast.success("Successfully Update User ");
         setSubmitting(false);
