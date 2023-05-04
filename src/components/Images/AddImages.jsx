@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form, Field, ErrorMessage, FieldArray } from "formik";
 import {
   Autocomplete,
   Backdrop,
@@ -18,7 +18,14 @@ import {
   Typography,
 } from "@mui/material";
 import { Switch } from "@mui/material";
-import { AiOutlineCloseCircle, AiOutlineCloudUpload } from "react-icons/ai";
+import {
+  AiFillMinusSquare,
+  AiFillPlusSquare,
+  AiOutlineCloseCircle,
+  AiOutlineCloudUpload,
+  AiOutlineMinusCircle,
+  AiOutlinePlusCircle,
+} from "react-icons/ai";
 
 import { toast } from "react-toastify";
 import { Progress } from "../common/Progress";
@@ -31,7 +38,7 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%,-50%)",
-  width: ["90%", "90%", "60%"],
+  width: ["100%", "95%", "65%"],
   bgcolor: "background.paper",
   border: "2px solid #F7FDFF",
   borderRadius: "10px",
@@ -53,6 +60,84 @@ const style2 = {
   p: 4,
 };
 
+
+const TagsInput = ({ name, value, onChange }) => {
+  const [newTag, setNewTag] = useState("");
+  const [showAddField, setShowAddField] = useState(false);
+
+  const handleAddTag = () => {
+    if (newTag.trim() !== "") {
+      setNewTag("");
+      onChange([...value, newTag.trim()]);
+    }
+  };
+  const handleTagRemove = (index) => {
+        const newTags = [...value];
+        newTags.splice(index, 1);
+        onChange(newTags);
+      };
+
+  const handleTagChange = (tagIndex, newTagValue) => {
+    const newTags = [...value];
+    const tagArray = newTags[tagIndex].split(',');
+    tagArray[0] = newTagValue;
+    newTags[tagIndex] = tagArray.join(',');
+    onChange(newTags);
+  };
+
+
+
+  return (
+    <div>
+      <div className="grid lg:grid-cols-3 md:grid-cols-3 md:gap-2 sm:grid-cols-2  lg:gap-3 sm:gap-1 w-full">
+        {value.flatMap((tag, index) => tag.split(",").map((subTag, subIndex) => (
+          <div
+            key={`${index}-${subIndex}`}
+            className="flex flex-row items-center lg:gap-2 sm:gap-0"
+          >
+            <input
+              type="text"
+              value={subTag}
+              onChange={(e) => handleTagChange(index, e.target.value)}
+              className="border border-gray-400 px-2 py-2 rounded-sm w-32 "
+            />
+            <button type="button" onClick={() => handleTagRemove(index)}>
+               <AiFillMinusSquare className="h-12 w-12 text-red-500" />
+             </button>
+          </div>
+        )))}
+        {showAddField ? (
+          <div className="flex items-center gap-2 ">
+            <input
+              type="text"
+              value={newTag}
+              onChange={(e) => setNewTag(e.target.value)}
+              placeholder="Add a Keyword"
+              className="border border-gray-400 px-2 py-2 w-32 rounded-sm"
+            />
+            <button type="button" onClick={handleAddTag}>
+              <AiFillPlusSquare className="h-12 w-12 text-blue-500" />
+            </button>
+          </div>
+        ) : (
+          <button
+            type="button"
+            onClick={() => setShowAddField(true)}
+            className="mt-2 border px-4 py-2 rounded-sm text-gray-400"
+          >
+            Add a tag
+          </button>
+        )}
+      </div>
+    </div>
+  );
+};
+
+
+
+
+
+
 const AddImage = ({ open, onClose, data, fetchData }) => {
   const handleResetAndClose = (resetForm) => {
     fetchData();
@@ -62,8 +147,7 @@ const AddImage = ({ open, onClose, data, fetchData }) => {
   const [opencat, setOpencat] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [category, setCategory] = useState();
-  const [tags, setTags] = useState("");
-  const [tagsAlldata, setTagsAlldata] = useState();
+  const [tags, setTags] = useState(data ? data.tags : []);
   const [previewImage, setPreviewImage] = useState(data ? data?.imageUrl : "");
 
   const handleTagsChange = (event) => {
@@ -80,22 +164,15 @@ const AddImage = ({ open, onClose, data, fetchData }) => {
     const res = await CategoryService.addTags(newProduct);
     console.log("Tags add successfully:", res.data);
     toast.success("Tags added successfully");
-    fetchTags();
     handleCatClose(true);
   };
 
-  const handleCatOpen = () => setOpencat(true);
   const handleCatClose = () => setOpencat(false);
 
   useEffect(() => {
     fetchCategory();
-    fetchTags();
   }, []);
 
-  const fetchTags = async () => {
-    const res = await CategoryService.getTags();
-    setTagsAlldata(res.data);
-  };
   const fetchCategory = async () => {
     const res = await CategoryService.getCategory();
     const activeCategories = res.data.filter(
@@ -118,7 +195,6 @@ const AddImage = ({ open, onClose, data, fetchData }) => {
       formData.append("category", values.category);
       formData.append("imageName", values.imageName);
       formData.append("tags", values.tags);
-    
 
       const response = await ImageService.addImage(formData);
       console.log(response);
@@ -192,7 +268,7 @@ const AddImage = ({ open, onClose, data, fetchData }) => {
               resetForm,
             }) => (
               <Form>
-                {/* <>{JSON.stringify(values)}</> */}
+                <>{JSON.stringify(values)}</>
                 <Box
                   sx={{
                     pb: 0,
@@ -357,12 +433,9 @@ const AddImage = ({ open, onClose, data, fetchData }) => {
                     )}
                   </div>
 
-                  <div className="mb-4">
-                    <label htmlFor="tags" className="block text-gray-800  mb-2">
-                      Tags
-                    </label>
-                    <div className=" justify-center items-center">
-                      <Autocomplete
+                  <div className="">
+                    {/* <div className=" justify-center items-center"> */}
+                    {/* <Autocomplete
                         fullWidth
                         multiple
                         id="tags-outlined"
@@ -387,15 +460,29 @@ const AddImage = ({ open, onClose, data, fetchData }) => {
                             placeholder="Select tags"
                           />
                         )}
-                      />
-                      <div className="items-center justify-center mt-2">
+                      /> */}
+                    {/* <div className="items-center justify-center mt-2">
                         <button
                           className="bg-green-400 px-4 py-1 rounded-md ml-2"
                           onClick={handleCatOpen}
                         >
                           +Add
                         </button>
-                      </div>
+                      </div> */}
+                    <div className="mb-4">
+                      <label htmlFor="tags" className="block font-medium mb-2">
+                        Tags
+                      </label>
+                      <Field name="tags">
+                        {({ field }) => (
+                          <TagsInput
+                            name={field.name}
+                            value={values[field.name]}
+                            onChange={(tags) => setFieldValue(field.name, tags)}
+                          />
+                        )}
+                      </Field>
+                      
                     </div>
                   </div>
 

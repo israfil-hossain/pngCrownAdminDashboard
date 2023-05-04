@@ -123,40 +123,98 @@ const ImageTable = ({ id, columns, data, typeData, fetchData }) => {
   };
   return (
     <>
-      <TableContainer component={Paper}>
+      <TableContainer
+        component={Paper}
+        sx={{ overflowX: "auto", width: "100%" }}
+      >
         <Table
           id={id}
-          sx={{ minWidth: 650, marginBottom: "30px", width: "100%" }}
+          sx={{
+            minWidth: 650,
+            maxWidth: "100%",
+            marginBottom: "30px",
+            width: "100%",
+          }}
           aria-label="dynamic table"
         >
           <TableHead sx={{ bgcolor: "#F7F4FC", width: "100%" }}>
-            <TableRow>
+            <TableRow sx={{ width: "100%" }}>
               <TableCell
                 sx={{
                   textAlign: "center",
                   color: "#000000",
                   fontSize: "13px",
                   fontWeight: "500",
+                  width: "5%",
                 }}
               >
                 {"ID"}
               </TableCell>
-              {columns?.map((column) => (
-                <TableCell
-                  key={column?.id}
-                  sx={{
-                    textAlign: "left",
 
-                    fontSize: "16px",
-                    fontWeight: "600",
-                    color: column?.color,
-                  }}
-                >
-                  <Typography sx={{ color: column?.color }}>
-                    {column?.label}
-                  </Typography>
-                </TableCell>
-              ))}
+              <TableCell
+                sx={{
+                  textAlign: "left",
+
+                  fontSize: "16px",
+                  fontWeight: "600",
+                }}
+              >
+                <Typography sx={{ color: "" }}>Image</Typography>
+              </TableCell>
+              <TableCell
+                sx={{
+                  textAlign: "left",
+                  fontSize: "16px",
+                  fontWeight: "600",
+                  width: "10%",
+                }}
+              >
+                <Typography sx={{ color: "" }}>Category name</Typography>
+              </TableCell>
+              <TableCell
+                sx={{
+                  textAlign: "left",
+                  fontSize: "16px",
+                  fontWeight: "600",
+                  width: "15%",
+                }}
+              >
+                <Typography sx={{ color: "" }}>Image Name</Typography>
+              </TableCell>
+              <TableCell
+                sx={{
+                  textAlign: "left",
+
+                  fontSize: "16px",
+                  fontWeight: "600",
+                  width: "20%",
+                }}
+              >
+                <Typography sx={{ color: "" }}>Status</Typography>
+              </TableCell>
+              <TableCell
+                sx={{
+                  textAlign: "left",
+
+                  fontSize: "16px",
+                  fontWeight: "600",
+                  width: "35%",
+                }}
+              >
+                <Typography sx={{ color: "" }}>Tag Name</Typography>
+              </TableCell>
+              <TableCell
+                sx={{
+                  textAlign: "left",
+
+                  fontSize: "16px",
+                  fontWeight: "600",
+                  width: "10%",
+                }}
+              >
+                <Typography sx={{ color: "" }}>Dimension</Typography>
+              </TableCell>
+
               <TableCell
                 sx={{
                   textAlign: "center",
@@ -164,6 +222,7 @@ const ImageTable = ({ id, columns, data, typeData, fetchData }) => {
                   fontSize: "13px",
                   fontWeight: "500",
                   flexDirection: "row",
+                  width: "10%",
                 }}
               >
                 {"Actions"}
@@ -211,10 +270,11 @@ const ImageTable = ({ id, columns, data, typeData, fetchData }) => {
                       {item?.category}
                     </Typography>
                   </TableCell>
-                  <TableCell sx={{}}>
+                  <TableCell sx={{ width: "35%" }}>
                     <Typography
                       sx={{
                         color: "black",
+                        fontSize: "14px",
                       }}
                     >
                       {item?.imageName}
@@ -229,27 +289,33 @@ const ImageTable = ({ id, columns, data, typeData, fetchData }) => {
                       {item?.status}
                     </Typography>
                   </TableCell>
-                  <TableCell sx={{maxWidth:"150px"}}>
+                  <TableCell sx={{width:"25%"}}>
                     <Typography
                       sx={{
                         color: "black",
+                        
                       }}
                     >
-                      {item &&
+                      {item?.tags?.map((tag, index) => (
+                        <React.Fragment key={tag}>
+                          <span className="text-small rounded-md mr-1 px-2 py-1">
+                            {tag}
+                          </span>
+                          {(index + 1) % 5 === 0 && <br />}
+                        </React.Fragment>
+                      ))}
+
+                      {/* {item &&
                         item.tags.map((tagString, id) => (
                           <div key={id} clasName="">
-                            <div className="flex flex-wrap">
-                              {tagString.split(",").map((tag, index) => (
-                                <div
-                                  key={index}
-                                  className="bg-indigo-200 rounded-md mt-1 mr-1 px-2 items-center text-center justify-center"
-                                >
-                                  {tag.trim()}
-                                </div>
-                              ))}
+                            <div
+                              className="flex lg:flex-row sm:flex-col"
+                              key={index}
+                            >
+                              {tagString}
                             </div>
                           </div>
-                        ))}
+                        ))} */}
                     </Typography>
                   </TableCell>
                   <TableCell sx={{}}>
@@ -262,11 +328,15 @@ const ImageTable = ({ id, columns, data, typeData, fetchData }) => {
                     </Typography>
                   </TableCell>
 
-                  <TableCell sx={{}}>
+                  <TableCell>
                     <Stack
                       direction="row"
                       spacing={0}
-                      sx={{ textAlign: "center", justifyContent: "center" }}
+                      sx={{
+                        textAlign: "center",
+                        justifyContent: "center",
+                        width: "120px",
+                      }}
                     >
                       <div sx={{ ml: 10 }}>
                         <IconButton
@@ -296,6 +366,7 @@ const ImageTable = ({ id, columns, data, typeData, fetchData }) => {
         </Table>
         <TablePagination
           rowsPerPageOptions={[10, 25, 100]}
+          width={"100%"}
           component="div"
           count={data?.length}
           rowsPerPage={rowsPerPage}

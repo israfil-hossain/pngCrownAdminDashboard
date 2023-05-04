@@ -4,16 +4,15 @@ import { Box, Breadcrumbs, Stack } from "@mui/material";
 import { Link } from "react-router-dom";
 import { LoadingButton } from "@mui/lab";
 import { CSVLink } from "react-csv";
-import { debounce } from "lodash";
+import { debounce, filter } from "lodash";
 
 //Internal Import
 import PackageBreadcrumb from "../components/common/PackageBreadcrumb";
 import CustomSearchField from "../components/common/SearchField";
 import PackageButton from "../components/common/PackageButton";
 import { MdSaveAlt } from "react-icons/md";
-import csvUserheaders from "../constants/csvUserheaders";
 
-import { BsSliders } from "react-icons/bs";
+import { BsImageFill } from "react-icons/bs";
 import ImageTable from "../components/common/ImageTable";
 
 import jsPDF from 'jspdf'
@@ -47,6 +46,7 @@ const Image = () => {
     image.tags.some((tag) => tag.toLowerCase().includes(searchQuery.toLowerCase()))
   );
 
+  console.log("Filter Data is :", filteredData);
   const [open,setOpen] = useState(false);
   const handleOpen=()=>setOpen(true);
   const handleClose = ()=>setOpen(false);
@@ -62,8 +62,8 @@ const Image = () => {
         <Breadcrumbs aria-label="breadcrumb">
           <Link underline="hover" color="grey" href="/">
             <Box sx={{ justifyContent: "center", display: "flex" }}>
-              <BsSliders size={23} className="min-w-max text-gray-500" />
-              &nbsp; Slider
+              <BsImageFill size={23} className="min-w-max text-gray-500" />
+              &nbsp; Images
             </Box>
           </Link>
           {/* <Typography color="grey">sdfgh</Typography> */}

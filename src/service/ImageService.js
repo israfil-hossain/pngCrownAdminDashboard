@@ -4,7 +4,7 @@ const addImage = (values) => {
   return FAPI.post("/image/add", values);
 };
 const getImage = () => {
-  return API.get("/image");
+  return API.get("/image?sortBy=createdAt&sortOrder=desc");
 };
 
 const getSingleImage = (id) => {
