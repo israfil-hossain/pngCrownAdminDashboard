@@ -268,7 +268,7 @@ const AddImage = ({ open, onClose, data, fetchData }) => {
               resetForm,
             }) => (
               <Form>
-                <>{JSON.stringify(values)}</>
+                {/* <>{JSON.stringify(values)}</> */}
                 <Box
                   sx={{
                     pb: 0,
@@ -482,7 +482,11 @@ const AddImage = ({ open, onClose, data, fetchData }) => {
                           />
                         )}
                       </Field>
-                      
+                      {touched.tags && errors.tags && (
+                      <p className="mt-2 text-sm text-red-600 ">
+                        {errors.tags}
+                      </p>
+                    )}
                     </div>
                   </div>
 
