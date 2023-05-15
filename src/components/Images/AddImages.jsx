@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Formik, Form, Field, ErrorMessage, FieldArray } from "formik";
+import { Formik, Form, Field, ErrorMessage } from "formik";
 import {
-  Autocomplete,
   Backdrop,
   Box,
   Chip,
@@ -14,7 +13,6 @@ import {
   MenuItem,
   Modal,
   Select,
-  TextField,
   Typography,
 } from "@mui/material";
 import { Switch } from "@mui/material";
@@ -23,8 +21,6 @@ import {
   AiFillPlusSquare,
   AiOutlineCloseCircle,
   AiOutlineCloudUpload,
-  AiOutlineMinusCircle,
-  AiOutlinePlusCircle,
 } from "react-icons/ai";
 
 import { toast } from "react-toastify";
@@ -148,8 +144,10 @@ const AddImage = ({ open, onClose, data, fetchData }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [category, setCategory] = useState();
   const [tags, setTags] = useState(data ? data.tags : []);
-  const [previewImage, setPreviewImage] = useState(data ? data?.imageUrl : "");
 
+
+  const [previewImage, setPreviewImage] = useState(data ? data?.imageUrl : "");
+  useEffect(() => {setPreviewImage(data?.imageUrl)},[data?.imageUrl]);
   const handleTagsChange = (event) => {
     setTags(event.target.value);
   };
@@ -200,6 +198,7 @@ const AddImage = ({ open, onClose, data, fetchData }) => {
       console.log(response);
       toast.success("Add Successfully");
       fetchData();
+      setPreviewImage();
       onClose();
     } catch (error) {
       toast.error("Something went wrong uploading ");
@@ -222,6 +221,7 @@ const AddImage = ({ open, onClose, data, fetchData }) => {
       console.log(response);
       toast.success("Update Successfully");
       fetchData();
+      setPreviewImage();
       onClose();
     } catch (error) {
       toast.error("Something went wrong uploading ");
@@ -434,41 +434,7 @@ const AddImage = ({ open, onClose, data, fetchData }) => {
                   </div>
 
                   <div className="">
-                    {/* <div className=" justify-center items-center"> */}
-                    {/* <Autocomplete
-                        fullWidth
-                        multiple
-                        id="tags-outlined"
-                        options={(tagsAlldata || []).map(
-                          (tag) => tag?.tagsitem
-                        )}
-                        getOptionLabel={(option) => option}
-                        value={values?.tags || []}
-                        onChange={(event, newValue) => {
-                          handleChange({
-                            target: {
-                              name: "tags",
-                              value: newValue,
-                            },
-                          });
-                        }}
-                        onBlur={handleBlur}
-                        renderInput={(params) => (
-                          <TextField
-                            {...params}
-                            label="Tags"
-                            placeholder="Select tags"
-                          />
-                        )}
-                      /> */}
-                    {/* <div className="items-center justify-center mt-2">
-                        <button
-                          className="bg-green-400 px-4 py-1 rounded-md ml-2"
-                          onClick={handleCatOpen}
-                        >
-                          +Add
-                        </button>
-                      </div> */}
+                   
                     <div className="mb-4">
                       <label htmlFor="tags" className="block font-medium mb-2">
                         Tags

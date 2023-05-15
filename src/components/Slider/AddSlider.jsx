@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import {
   Backdrop,
@@ -30,14 +30,21 @@ const style = {
   p: 4,
 };
 const AddSlider = ({ open, onClose, data, fetchData }) => {
+  const [previewImage, setPreviewImage] = useState();
+
+  useEffect(() => {setPreviewImage(data?.imageUrl)},[data?.imageUrl]);
+ 
+  console.log("Image Url ", data?.imageUrl);
+
   const handleResetAndClose = (resetForm) => {
     fetchData();
     onClose();
     resetForm();
+    setPreviewImage();
   };
   const [isLoading, setIsLoading] = useState(false);
 
-  const [previewImage, setPreviewImage] = useState(data ? data.imageUrl : "");
+  
 
   
   const handleSubmit = async (values, { setSubmitting }) => {
@@ -52,6 +59,7 @@ const AddSlider = ({ open, onClose, data, fetchData }) => {
       console.log(response);
       toast.success("Add Successfully");
       fetchData(); 
+      setPreviewImage();
       onClose(); 
 
     } catch (error) {
@@ -73,6 +81,7 @@ const AddSlider = ({ open, onClose, data, fetchData }) => {
      console.log(response);
      toast.success("Update Successfully");
      fetchData(); 
+     setPreviewImage();
      onClose(); 
 
    } catch (error) {
@@ -101,7 +110,7 @@ const AddSlider = ({ open, onClose, data, fetchData }) => {
         <Box sx={style}>
           <Formik
             initialValues={{
-              image: data ? data?.imageUrl : "",
+              image: data?.imageUrl,
               status: data ? data?.status : "active",
               link: data? data?.link : "https://www.google.com/",
             }}
@@ -153,7 +162,7 @@ const AddSlider = ({ open, onClose, data, fetchData }) => {
                       {previewImage ? (
                         <div className="rounded-md bg-gray-100 p-3 mb-5 flex items-center justify-center">
                           <img
-                            src={previewImage}
+                            src={previewImage ? previewImage : values.image }
                             alt="Preview"
                             style={{ height: "100px", marginTop: "10px" }}
                             className="w-50 h-50 rounded-md"
@@ -183,6 +192,7 @@ const AddSlider = ({ open, onClose, data, fetchData }) => {
                       name="image"
                       component="div"
                       className="error-message"
+                      style={{ color: "red" }}
                     />
                   </div>
 

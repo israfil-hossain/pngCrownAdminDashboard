@@ -22,10 +22,13 @@ import AddImage from "../components/Images/AddImages";
 import ImageService from "../service/ImageService";
 import imageHeader from "../constants/image";
 import csvImageheaders from "../constants/imageHeaders";
+import { Progress } from "../components/common/Progress";
+import { CommonProgress } from "../components/common/CommonProgress";
 
 const Image = () => {
   const [data, setData] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   
   const handleClick = () => {};
   // Fetch User Data
@@ -34,8 +37,16 @@ const Image = () => {
   }, []);
 
   const fetchData = async () => {
-    const res = await ImageService.getImage();
-    setData(res.data);
+    setIsLoading(true); // Set isLoading to true before making the API call
+    try {
+      const res = await ImageService.getImage();
+      setData(res.data);
+    } catch (error) {
+      // Handle errors here
+      console.error(error);
+    } finally {
+      setIsLoading(false); // Set isLoading to false after the API call is completed
+    }
   };
   const handleSearchQueryChange = debounce((query) => {
     setSearchQuery(query);
@@ -46,7 +57,7 @@ const Image = () => {
     image.tags.some((tag) => tag.toLowerCase().includes(searchQuery.toLowerCase()))
   );
 
-  console.log("Filter Data is :", filteredData);
+  // console.log("Filter Data is :", filteredData);
   const [open,setOpen] = useState(false);
   const handleOpen=()=>setOpen(true);
   const handleClose = ()=>setOpen(false);
@@ -153,13 +164,17 @@ const Image = () => {
       </Stack>
       <div className="pt-5">
         {/* <CommonTable   columns={userHeader} data={filteredData} typeData={"user"} onDeleted={fetchData}/> */}
-        <ImageTable
+        {
+          isLoading ? <CommonProgress /> :  
+          <ImageTable
           id={"imagedata"}
           columns={imageHeader}
           data={filteredData}
           typeData={"image"}
           fetchData={fetchData}
         />
+        }
+        
       </div>
 
       <AddImage open={open} onClose={handleClose} fetchData={fetchData}/>

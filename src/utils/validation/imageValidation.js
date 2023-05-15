@@ -5,7 +5,10 @@ const imageValidationSchema = Yup.object().shape({
     .required("Image is required")
     .test("fileType", "Only PNG images are allowed", (value) => {
       return value ? value.type === "image/png" : true;
+    }).test("fileSize", "Image must be greater than 5KB or Please Select an Image ", (value) => {
+      return value && value.size > 5 * 1024;
     }),
+
   category : Yup.string().required("Category  is required"),
   imageName : Yup.string().required("Image name is required"),
   tags: Yup.array()

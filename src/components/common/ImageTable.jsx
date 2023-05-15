@@ -70,7 +70,7 @@ const ImageTable = ({ id, columns, data, typeData, fetchData }) => {
       const response = await ImageService.deleteImage(id);
 
       if (response.status === 200) {
-        toast.success("Slider Deleted Successfully !");
+        toast.success("Image Deleted Successfully !");
         fetchData();
       }
     } catch (err) {
@@ -212,7 +212,7 @@ const ImageTable = ({ id, columns, data, typeData, fetchData }) => {
                   width: "10%",
                 }}
               >
-                <Typography sx={{ color: "" }}>Dimension</Typography>
+                <Typography sx={{ color: "" }}>Size</Typography>
               </TableCell>
 
               <TableCell
@@ -305,26 +305,15 @@ const ImageTable = ({ id, columns, data, typeData, fetchData }) => {
                         </React.Fragment>
                       ))}
 
-                      {/* {item &&
-                        item.tags.map((tagString, id) => (
-                          <div key={id} clasName="">
-                            <div
-                              className="flex lg:flex-row sm:flex-col"
-                              key={index}
-                            >
-                              {tagString}
-                            </div>
-                          </div>
-                        ))} */}
                     </Typography>
                   </TableCell>
                   <TableCell sx={{}}>
                     <Typography
                       sx={{
-                        color: "black",
+                        color: "black",flex: 1,
                       }}
                     >
-                      {item?.height}x{item?.width}
+                      {(item?.size / 1048576).toFixed(2)} {"MB"}
                     </Typography>
                   </TableCell>
 
@@ -433,12 +422,6 @@ const ImageTable = ({ id, columns, data, typeData, fetchData }) => {
         }
       })()}
 
-      {/* <CommonModal
-        selectedData={selectedData}
-        open={open}
-        onClose={handleClose}
-        typeData={typeData}
-      /> */}
     </>
   );
 };
